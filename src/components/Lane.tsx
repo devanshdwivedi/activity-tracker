@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ActvityContext } from "../context/ActivitiesState";
 import Activity from "./Activity";
 
 interface LaneProps {
@@ -43,6 +44,8 @@ function LaneHeader({
 }
 
 export default function Lane({ activityState, canShrink }: LaneProps) {
+
+  const { activities } = useContext(ActvityContext);
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const expandCallback = () => {
     setIsExpanded(!isExpanded);
@@ -97,14 +100,23 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
           canShrink={canShrink}
           title={activityState}
         />
-        <Activity
-          title={'Integrate GQL APIs'}
-          id={'1'}
-          activityState={activityState}
-          priority={2}
-          tags={['ISVAnalytics, GQL']}
-          tasks={[{title: 'Finish task 1', completed: true}, {title: "Finish Task 2", completed: false}]}
-         />
+        {
+          activities && activities.length > 0 && activities.map((activity: Activity, index: number)=>{
+            if(activity.activityState === activityState){
+              return (
+                <Activity
+                  title={activity.title}
+                  id={activity.id}
+                  activityState={activityState}
+                  priority={activity.priority}
+                  tags={activity.tags}
+                  tasks={activity.tasks}
+                />
+              )
+            }
+            return <></>;
+          })
+        }
       </div>
     );
   };
