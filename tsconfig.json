@@ -13,6 +13,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "paths": {
+      "*": ["types/*.d.ts"]
+    },
     "jsx": "react"
   },
   "include": ["./src"]

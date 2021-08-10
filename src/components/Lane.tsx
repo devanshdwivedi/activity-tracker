@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Activity from "./Activity";
 
 interface LaneProps {
   activityState: string;
@@ -96,6 +97,14 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
           canShrink={canShrink}
           title={activityState}
         />
+        <Activity
+          title={'Integrate GQL APIs'}
+          id={'1'}
+          activityState={activityState}
+          priority={2}
+          tags={['ISVAnalytics, GQL']}
+          tasks={[{title: 'Finish task 1', completed: true}, {title: "Finish Task 2", completed: false}]}
+         />
       </div>
     );
   };
