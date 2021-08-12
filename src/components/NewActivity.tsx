@@ -1,13 +1,15 @@
-import React from 'react';
-import Modal from 'react-modal';
+import React from "react";
+import Modal from "react-modal";
 
 interface NewActivityProps {
-    isOpen: boolean;
-    closeCallback: () => void;
+  isOpen: boolean;
+  closeCallback: () => void;
 }
 
-export default function NewActivity({isOpen, closeCallback}: NewActivityProps) {
-    
+export default function NewActivity({
+  isOpen,
+  closeCallback,
+}: NewActivityProps) {
   const customStyles = {
     content: {
       top: "50%",
@@ -19,9 +21,9 @@ export default function NewActivity({isOpen, closeCallback}: NewActivityProps) {
     },
   };
 
-    return (
-        <Modal isOpen={isOpen} onRequestClose={closeCallback} style={customStyles}>
-            {'This is the new activity modal'}
-        </Modal>
-    )
+  return (
+    <Modal isOpen={isOpen} onRequestClose={closeCallback} style={customStyles}>
+      {"This is the new activity modal"}
+    </Modal>
+  );
 }
