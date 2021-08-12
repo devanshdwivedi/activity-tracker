@@ -107,6 +107,7 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
             ) {
               return (
                 <Activity
+                  key={activity.id + "-index-" + index}
                   title={activity.title}
                   id={activity.id}
                   activityState={activityState}
@@ -116,7 +117,7 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
                 />
               );
             }
-            return <></>;
+            return null;
           })}
       </div>
     );
