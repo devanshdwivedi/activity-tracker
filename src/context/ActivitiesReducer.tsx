@@ -1,9 +1,6 @@
 import { ADD_ACTIVITY, REMOVE_ACTIVITY } from "./ActivityConstants";
 
-export default function ActivitiesReducer(
-  state: any,
-  action: ActionPayload
-) {
+export default function ActivitiesReducer(state: any, action: ActionPayload) {
   switch (action.type) {
     case ADD_ACTIVITY:
       return {

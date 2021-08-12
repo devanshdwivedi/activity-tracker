@@ -3,7 +3,7 @@ import { ActvityContext } from "../context/ActivitiesState";
 import Activity from "./Activity";
 
 interface LaneProps {
-  activityState: string;
+  activityState: ActivityState;
   canShrink?: boolean;
 }
 
@@ -44,7 +44,6 @@ function LaneHeader({
 }
 
 export default function Lane({ activityState, canShrink }: LaneProps) {
-
   const { activities } = useContext(ActvityContext);
   const [isExpanded, setIsExpanded] = useState<boolean>(true);
   const expandCallback = () => {
@@ -65,7 +64,7 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
           expanded={isExpanded}
           expandCallback={expandCallback}
           canShrink={canShrink}
-          title={activityState}
+          title={activityState.toString()}
         />
         {
           <div
@@ -98,11 +97,14 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
           expanded={isExpanded}
           expandCallback={expandCallback}
           canShrink={canShrink}
-          title={activityState}
+          title={activityState.toString()}
         />
-        {
-          activities && activities.length > 0 && activities.map((activity: Activity, index: number)=>{
-            if(activity.activityState === activityState){
+        {activities &&
+          activities.length > 0 &&
+          activities.map((activity: Activity, index: number) => {
+            if (
+              activity.activityState.toString() === activityState.toString()
+            ) {
               return (
                 <Activity
                   title={activity.title}
@@ -112,11 +114,10 @@ export default function Lane({ activityState, canShrink }: LaneProps) {
                   tags={activity.tags}
                   tasks={activity.tasks}
                 />
-              )
+              );
             }
             return <></>;
-          })
-        }
+          })}
       </div>
     );
   };

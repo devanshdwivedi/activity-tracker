@@ -5,22 +5,23 @@ import { ADD_ACTIVITY, REMOVE_ACTIVITY } from "./ActivityConstants";
 const localStorageKey = "activities";
 
 const getActivitiesFromLocalStorage = () => {
-  let activitiesStr: string | null = window.localStorage.getItem(localStorageKey);
+  let activitiesStr: string | null =
+    window.localStorage.getItem(localStorageKey);
   let activities: Activity[];
   if (!activitiesStr) {
     activities = [
-        {
-            id: '1',
-            activityState: 'New',
-            title: 'Event 1',
-            priority: 4
-        },
-        {
-            id: '2',
-            activityState: 'Committed',
-            title: 'Event 2',
-            priority: 2
-        }
+      {
+        id: "1",
+        activityState: "New",
+        title: "Event 1",
+        priority: 4,
+      },
+      {
+        id: "2",
+        activityState: "Committed",
+        title: "Event 2",
+        priority: 5,
+      },
     ];
   } else {
     activities = JSON.parse(activitiesStr);
@@ -67,7 +68,7 @@ export const ActivityProvider = (props: any) => {
       value={{
         activities: state.activities,
         addActivity,
-        removeActivity
+        removeActivity,
       }}
     >
       {props.children}
