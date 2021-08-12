@@ -11,21 +11,29 @@ import { ActivityProvider } from "./context/ActivitiesState";
 import NewActivity from "./components/NewActivity";
 
 function ActivityBoard() {
-
-  const [isCreationModalOpen, setIsCreationModalOpen] = useState<boolean>(false);
+  const [isCreationModalOpen, setIsCreationModalOpen] =
+    useState<boolean>(false);
 
   return (
     <ActivityProvider>
-      <NewActivity isOpen={isCreationModalOpen} closeCallback={() => setIsCreationModalOpen(false)} />
+      <NewActivity
+        isOpen={isCreationModalOpen}
+        closeCallback={() => setIsCreationModalOpen(false)}
+      />
       <div>
-        <button onClick={() => setIsCreationModalOpen(true)} style={{height: '30px', margin: '10px 0'}}>Add a new task</button>
+        <button
+          onClick={() => setIsCreationModalOpen(true)}
+          style={{ height: "30px", margin: "10px 0" }}
+        >
+          Add a new task
+        </button>
       </div>
       <div style={{ display: "flex", flexDirection: "row" }}>
-        <Lane key={'lane-new'} activityState={"New"} canShrink={true} />
-        <Lane key={'lane-committed'} activityState={"Committed"} />
-        <Lane key={'lane-in-progress'} activityState={"In progress"} />
-        <Lane key={'lane-in-review'} activityState={"In review"} />
-        <Lane key={'lane-done'} activityState={"Done"} canShrink={true} />
+        <Lane key={"lane-new"} activityState={"New"} canShrink={true} />
+        <Lane key={"lane-committed"} activityState={"Committed"} />
+        <Lane key={"lane-in-progress"} activityState={"In progress"} />
+        <Lane key={"lane-in-review"} activityState={"In review"} />
+        <Lane key={"lane-done"} activityState={"Done"} canShrink={true} />
       </div>
     </ActivityProvider>
   );
