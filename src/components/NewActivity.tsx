@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import Modal from "react-modal";
 import { useFormik } from "formik";
+import { ActvityContext } from "../context/ActivitiesState";
+import { generateId } from "../utils/commonUtils";
 
 interface NewActivityProps {
   isOpen: boolean;
@@ -11,13 +13,22 @@ export default function NewActivity({
   isOpen,
   closeCallback,
 }: NewActivityProps) {
+  const { addActivity } = useContext(ActvityContext);
+
   const formik = useFormik({
     initialValues: {
       activityTitle: "New Activity",
-      priority: "3",
+      priority: 3,
     },
     onSubmit: (values) => {
-      console.log(values);
+      addActivity({
+        title: values.activityTitle,
+        priority: values.priority as Priority,
+        id: generateId(),
+        activityState: "New",
+      });
+      closeCallback();
+      formik.resetForm();
     },
   });
 

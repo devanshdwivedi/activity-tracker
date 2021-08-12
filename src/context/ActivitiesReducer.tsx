@@ -5,14 +5,14 @@ export default function ActivitiesReducer(state: any, action: ActionPayload) {
     case ADD_ACTIVITY:
       return {
         ...state,
-        events: [...state.events, action.payload],
+        activities: [...state.activities, action.payload],
       };
 
     case REMOVE_ACTIVITY:
       return {
         ...state,
-        events: state.events.filter(
-          (event: any) => event.id !== action.payload
+        activities: state.activities.filter(
+          (activity: any) => activity.id !== action.payload
         ),
       };
 
