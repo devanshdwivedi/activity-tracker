@@ -1,6 +1,7 @@
-import React, { createContext, useEffect, useReducer } from "react";
-import ActivitiesReducer from "./ActivitiesReducer";
+import React, { createContext, useReducer } from "react";
 import { ADD_ACTIVITY, REMOVE_ACTIVITY } from "./ActivityConstants";
+import { generateId } from "../utils/commonUtils";
+import ActivitiesReducer from "./ActivitiesReducer";
 
 const localStorageKey = "activities";
 
@@ -11,15 +12,15 @@ const getActivitiesFromLocalStorage = () => {
   if (!activitiesStr) {
     activities = [
       {
-        id: "1",
+        id: generateId(1),
         activityState: "New",
-        title: "Event 1",
+        title: "Activity 1",
         priority: 4,
       },
       {
-        id: "2",
+        id: generateId(2),
         activityState: "Committed",
-        title: "Event 2",
+        title: "Activity 2",
         priority: 5,
       },
     ];
