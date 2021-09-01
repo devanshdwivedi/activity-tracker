@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import { useFormik } from "formik";
 import { ActvityContext } from "../context/ActivitiesState";
 import { generateId } from "../utils/commonUtils";
+import { useGlobalStyles } from "../GlobalStyles";
 
 interface NewActivityProps {
   isOpen: boolean;
@@ -13,7 +14,9 @@ export default function NewActivity({
   isOpen,
   closeCallback,
 }: NewActivityProps) {
+
   const { addActivity } = useContext(ActvityContext);
+  const classes = useGlobalStyles({});
 
   const formik = useFormik({
     initialValues: {
@@ -46,8 +49,8 @@ export default function NewActivity({
   return (
     <Modal isOpen={isOpen} onRequestClose={closeCallback} style={customStyles}>
       <form onSubmit={formik.handleSubmit}>
-        <div>
-          <label htmlFor="activityTitle">Event Title</label>
+        <fieldset className={classes.myFieldset}>
+          <label className={classes.myLabel} htmlFor="activityTitle">Event Title</label>
           <input
             id="activityTitle"
             name="activityTitle"
@@ -55,9 +58,7 @@ export default function NewActivity({
             onChange={formik.handleChange}
             value={formik.values.activityTitle}
           />
-        </div>
-        <div>
-          <label htmlFor="priority">Priority</label>
+          <label className={classes.myLabel} htmlFor="priority">Priority</label>
           <select
             id="priority"
             name="priority"
@@ -71,9 +72,11 @@ export default function NewActivity({
             <option value={4} label="4" />
             <option value={5} label="5" />
           </select>
-        </div>
+          <label className={classes.myLabel}></label>
         <button type="submit">Create Activity</button>
+        </fieldset>
       </form>
     </Modal>
   );
 }
+
