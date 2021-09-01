@@ -14,7 +14,6 @@ export default function NewActivity({
   isOpen,
   closeCallback,
 }: NewActivityProps) {
-
   const { addActivity } = useContext(ActvityContext);
   const classes = useGlobalStyles({});
 
@@ -50,7 +49,9 @@ export default function NewActivity({
     <Modal isOpen={isOpen} onRequestClose={closeCallback} style={customStyles}>
       <form onSubmit={formik.handleSubmit}>
         <fieldset className={classes.myFieldset}>
-          <label className={classes.myLabel} htmlFor="activityTitle">Event Title</label>
+          <label className={classes.myLabel} htmlFor="activityTitle">
+            Event Title
+          </label>
           <input
             id="activityTitle"
             name="activityTitle"
@@ -58,7 +59,9 @@ export default function NewActivity({
             onChange={formik.handleChange}
             value={formik.values.activityTitle}
           />
-          <label className={classes.myLabel} htmlFor="priority">Priority</label>
+          <label className={classes.myLabel} htmlFor="priority">
+            Priority
+          </label>
           <select
             id="priority"
             name="priority"
@@ -73,10 +76,9 @@ export default function NewActivity({
             <option value={5} label="5" />
           </select>
           <label className={classes.myLabel}></label>
-        <button type="submit">Create Activity</button>
+          <button type="submit">Create Activity</button>
         </fieldset>
       </form>
     </Modal>
   );
 }
-
