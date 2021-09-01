@@ -16,6 +16,7 @@ export default function NewActivity({
 }: NewActivityProps) {
   const { addActivity } = useContext(ActvityContext);
   const classes = useGlobalStyles({});
+  const genId = generateId();
 
   const formik = useFormik({
     initialValues: {
@@ -26,7 +27,7 @@ export default function NewActivity({
       addActivity({
         title: values.activityTitle,
         priority: values.priority as Priority,
-        id: generateId(),
+        id: genId,
         activityState: "New",
       });
       closeCallback();
@@ -49,21 +50,21 @@ export default function NewActivity({
     <Modal isOpen={isOpen} onRequestClose={closeCallback} style={customStyles}>
       <form onSubmit={formik.handleSubmit}>
         <fieldset className={classes.myFieldset}>
-          <label className={classes.myLabel} htmlFor="activityTitle">
+          <label className={classes.myLabel} htmlFor={"activityTitle" + genId}>
             Event Title
           </label>
           <input
-            id="activityTitle"
+            id={"activityTitle" + genId}
             name="activityTitle"
             type="text"
             onChange={formik.handleChange}
             value={formik.values.activityTitle}
           />
-          <label className={classes.myLabel} htmlFor="priority">
+          <label className={classes.myLabel} htmlFor={"priority" + genId}>
             Priority
           </label>
           <select
-            id="priority"
+            id={"priority" + genId}
             name="priority"
             value={formik.values.priority}
             onChange={formik.handleChange}

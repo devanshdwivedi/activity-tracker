@@ -11,7 +11,7 @@ interface FieldSetProps {
 
 export const useGlobalStyles = createUseStyles<RuleNames, FieldSetProps>({
   myFieldset: {
-    margin: "2em 0",
+    margin: "0.5em 0",
     padding: "1em 2em",
     border: "1px solid black",
     borderRadius: "6px",
