@@ -1,5 +1,6 @@
 import { useFormik } from "formik";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ActvityContext } from "../context/ActivitiesState";
 import { useGlobalStyles } from "../GlobalStyles";
 
 interface ActivityProps {
@@ -17,8 +18,9 @@ export default function Activity({
   id,
   title,
   activityState,
-  priority
+  priority,
 }: ActivityProps) {
+  const { editActivity } = useContext(ActvityContext);
   const [isLocked, setIsLocked] = useState(true);
   const classes = useGlobalStyles({});
 
@@ -33,7 +35,12 @@ export default function Activity({
       setIsLocked(true);
     },
     onSubmit: (values) => {
-      console.log("values: ", values);
+      editActivity({
+        title: values.activityTitle,
+        priority: values.priority as Priority,
+        id,
+        activityState,
+      });
       setIsLocked(true);
     },
   });
@@ -92,18 +99,11 @@ export default function Activity({
               <option value={5} label="5" />
             </select>
             <label className={classes.myLabel}></label>
-            {
-              !isLocked && 
-              <button type="submit">Edit</button>
-            }
-            {
-              !isLocked && 
-              <button type="reset">Reset</button>
-            }
-            {
-              isLocked && 
+            {!isLocked && <button type="submit">Edit</button>}
+            {!isLocked && <button type="reset">Reset</button>}
+            {isLocked && (
               <button onClick={() => setIsLocked(false)}>Edit Activity</button>
-            }
+            )}
           </fieldset>
         </form>
       </div>

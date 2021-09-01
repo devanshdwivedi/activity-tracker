@@ -1,4 +1,8 @@
-import { ADD_ACTIVITY, REMOVE_ACTIVITY } from "./ActivityConstants";
+import {
+  ADD_ACTIVITY,
+  REMOVE_ACTIVITY,
+  EDIT_ACTIVITY,
+} from "./ActivityConstants";
 
 export default function ActivitiesReducer(state: any, action: ActionPayload) {
   switch (action.type) {
@@ -14,6 +18,17 @@ export default function ActivitiesReducer(state: any, action: ActionPayload) {
         activities: state.activities.filter(
           (activity: any) => activity.id !== action.payload
         ),
+      };
+
+    case EDIT_ACTIVITY:
+      return {
+        ...state,
+        activities: state.activities.map((activity: any) => {
+          if (activity.id !== (action.payload as Activity).id) {
+            return activity;
+          }
+          return action.payload;
+        }),
       };
 
     default:

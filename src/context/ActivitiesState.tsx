@@ -1,5 +1,9 @@
-import React, { createContext, useReducer } from "react";
-import { ADD_ACTIVITY, REMOVE_ACTIVITY } from "./ActivityConstants";
+import React, { createContext, useEffect, useReducer } from "react";
+import {
+  ADD_ACTIVITY,
+  EDIT_ACTIVITY,
+  REMOVE_ACTIVITY,
+} from "./ActivityConstants";
 import { generateId } from "../utils/commonUtils";
 import ActivitiesReducer from "./ActivitiesReducer";
 
@@ -34,6 +38,7 @@ const initialState: GlobalStateObject = {
   activities: getActivitiesFromLocalStorage(),
   addActivity: (activity: Activity) => {},
   removeActivity: () => {},
+  editActivity: (activity: Activity) => {},
 };
 
 export const ActvityContext = createContext(initialState);
@@ -41,14 +46,21 @@ export const ActvityContext = createContext(initialState);
 export const ActivityProvider = (props: any) => {
   const [state, dispatch] = useReducer(ActivitiesReducer, initialState);
 
-  /*useEffect(() => {
-    if (state && state.events) {
+  useEffect(() => {
+    if (state && state.activities) {
       window.localStorage.setItem(
         localStorageKey,
-        JSON.stringify(state.events)
+        JSON.stringify(state.activities)
       );
     }
-  }, [state]);*/
+  }, [state]);
+
+  function editActivity(event: Activity) {
+    dispatch({
+      type: EDIT_ACTIVITY,
+      payload: event,
+    });
+  }
 
   function addActivity(event: Activity) {
     dispatch({
@@ -70,6 +82,7 @@ export const ActivityProvider = (props: any) => {
         activities: state.activities,
         addActivity,
         removeActivity,
+        editActivity,
       }}
     >
       {props.children}

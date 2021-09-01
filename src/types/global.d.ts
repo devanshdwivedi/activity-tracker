@@ -27,6 +27,7 @@ declare interface GlobalStateObject {
   activities: Activity[];
   addActivity(activity: Activity): void;
   removeActivity(activityId: string): void;
+  editActivity(activity: Activity): void;
 }
 
 interface BaseActionPayload {
