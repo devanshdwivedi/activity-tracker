@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useGlobalStyles } from "../GlobalStyles";
 
 interface ActivityProps {
@@ -17,29 +17,31 @@ export default function Activity({
   id,
   title,
   activityState,
-  priority,
-  originalEsimate,
-  remainingWork,
-  tags,
-  tasks,
+  priority
 }: ActivityProps) {
+  const [isLocked, setIsLocked] = useState(true);
   const classes = useGlobalStyles({});
 
   const formik = useFormik({
     initialValues: {
       activityTitle: title,
       priority: priority,
+      activityState: activityState,
       id: id,
+    },
+    onReset: () => {
+      setIsLocked(true);
     },
     onSubmit: (values) => {
       console.log("values: ", values);
+      setIsLocked(true);
     },
   });
 
   return (
     <div style={{ margin: "2px 5px" }}>
       <div style={{ padding: "5px" }}>
-        <form onSubmit={formik.handleSubmit}>
+        <form onSubmit={formik.handleSubmit} onReset={formik.handleReset}>
           <fieldset className={classes.myFieldset}>
             <label className={classes.myLabel} htmlFor={"id" + id}>
               Activity Id
@@ -49,8 +51,17 @@ export default function Activity({
               name="id"
               type="text"
               disabled={true}
-              onChange={formik.handleChange}
               value={formik.values.id}
+            />
+            <label className={classes.myLabel} htmlFor={"activityState" + id}>
+              Activity State
+            </label>
+            <input
+              id={"activityState" + id}
+              name="activityState"
+              type="text"
+              disabled={true}
+              value={formik.values.activityState}
             />
             <label className={classes.myLabel} htmlFor={"activityTitle" + id}>
               Activity Title
@@ -59,7 +70,7 @@ export default function Activity({
               id={"activityTitle" + id}
               name="activityTitle"
               type="text"
-              disabled={true}
+              disabled={isLocked}
               onChange={formik.handleChange}
               value={formik.values.activityTitle}
             />
@@ -71,7 +82,7 @@ export default function Activity({
               name="priority"
               value={formik.values.priority}
               onChange={formik.handleChange}
-              disabled={true}
+              disabled={isLocked}
               onBlur={formik.handleBlur}
             >
               <option value={1} label="1" />
@@ -81,7 +92,18 @@ export default function Activity({
               <option value={5} label="5" />
             </select>
             <label className={classes.myLabel}></label>
-            <button type="submit">Edit Activity</button>
+            {
+              !isLocked && 
+              <button type="submit">Edit</button>
+            }
+            {
+              !isLocked && 
+              <button type="reset">Reset</button>
+            }
+            {
+              isLocked && 
+              <button onClick={() => setIsLocked(false)}>Edit Activity</button>
+            }
           </fieldset>
         </form>
       </div>
